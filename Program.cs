@@ -1,5 +1,6 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Raspberry.API;
 using Serilog;
 
 try
@@ -16,6 +17,8 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddHealthChecks();
+
+    builder.Services.AddTransient<ComedourSevices>();
 
     var app = builder.Build();
     
