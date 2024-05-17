@@ -18,7 +18,7 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddHealthChecks();
 
-    builder.Services.AddTransient<ComedourSevices>();
+    builder.Services.AddTransient<ComedouroSevices>();
 
     var app = builder.Build();
     

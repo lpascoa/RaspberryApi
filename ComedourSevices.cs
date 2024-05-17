@@ -4,15 +4,15 @@ using Raspberry.API.Controllers;
 
 namespace Raspberry.API
 {
-	public class ComedourSevices
+	public class ComedouroSevices
 	{
-        private readonly ILogger<ComedourSevices> _logger;
+        private readonly ILogger<ComedouroSevices> _logger;
         private GpioController _controller;
         private int pinEnvio = 26;
         private int pinRetorno = 24;
         private int lightTime = 1000;
 
-        public ComedourSevices(ILogger<ComedourSevices> log)
+        public ComedouroSevices(ILogger<ComedouroSevices> log)
         {
             _logger = log;
             DesligarPinos();
