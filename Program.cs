@@ -1,8 +1,10 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
 try
 {
-    Console.WriteLine($"Starting {Environment.MachineName}");
+    Log.Information($"Starting {Environment.MachineName}");
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((context, configuration) =>
@@ -13,6 +15,7 @@ try
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddHealthChecks();
 
     var app = builder.Build();
     
@@ -23,12 +26,17 @@ try
     //{
     app.UseSwagger();
     app.UseSwaggerUI();
-    //}
 
-    //app.UseHttpsRedirection();
+    app.MapHealthChecks("/healthz", new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
+    app.UseRouting();
+
+    Log.Information("Using port: 9090");
     app.Urls.Add("http://*:9090");
-    app.UseAuthorization();
+    
 
     app.MapControllers();
 
