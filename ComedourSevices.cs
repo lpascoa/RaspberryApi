@@ -22,7 +22,7 @@ namespace Raspberry.API
         public void AlimentarBruce(int tempo)
         {
             DesligarPinos();
-            EnviarComida();
+            RecolherComida();
             Thread.Sleep(lightTime * tempo);
             /*RecolherComida();
             Thread.Sleep(lightTime * 1);
