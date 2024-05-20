@@ -22,7 +22,8 @@ namespace Raspberry.API
         public void AlimentarBruce(int tempo)
         {
             DesligarPinos();
-            RecolherComida();
+            Thread.Sleep(lightTime * tempo);
+            /*RecolherComida();
             Thread.Sleep(lightTime * 1);
             for (int i = 1; i <= tempo; i++)
             {
@@ -36,7 +37,7 @@ namespace Raspberry.API
                     Thread.Sleep(lightTime * i);
                     DesligarPinos();
                 }
-            }
+            }*/
             DesligarPinos();
         }
 

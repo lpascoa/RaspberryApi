@@ -4,6 +4,7 @@ using System;
 using System.Device.Gpio;
 using System.Net.NetworkInformation;
 using System.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Raspberry.API.Controllers
 {
@@ -23,17 +24,25 @@ namespace Raspberry.API.Controllers
         }
 
         [HttpPost("/enviarcomida/{tempo}")]
-        public bool Enviarcomida([FromRoute]int tempo)
+        public async Task<IActionResult> Enviarcomida([FromRoute] string tempo)
         {
-            _comedouro.AlimentarBruce(tempo);
-            return true;
+            if (tempo.All(char.IsDigit))
+            {
+                _comedouro.AlimentarBruce(Convert.ToInt32(tempo));
+                return Ok("Comida Enviada");
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, new { error = "Valor de tempo informado inválido" });
+            }           
+            
         }
 
         [HttpPost("/desligarEixo")]
-        public bool DesligarEixo()
+        public async Task<IActionResult> DesligarEixo()
         {
             _comedouro.DesligarPinos();
-            return true;
+            return Ok("Comedouro desligado");
         }
     }
 }
